@@ -1,0 +1,40 @@
+{
+  "name": "gulp-spawn-mocha",
+  "version": "0.0.0",
+  "description": "Runs Mocha as a child process in Gulp.",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/KenPowers/gulp-spawn-mocha.git"
+  },
+  "keywords": [
+    "gulpplugin",
+    "mocha",
+    "spawn",
+    "child",
+    "process"
+  ],
+  "author": {
+    "name": "Kenneth Powers",
+    "email": "ken@kenpowers.net"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KenPowers/gulp-spawn-mocha/issues"
+  },
+  "homepage": "https://github.com/KenPowers/gulp-spawn-mocha",
+  "dependencies": {
+    "through": "~2.3.4",
+    "lodash": "~2.4.1",
+    "mocha": "~1.16.2"
+  },
+  "devDependencies": {
+    "gulp": "~3.2.4",
+    "chai": "~1.8.1",
+    "sinon": "~1.7.3",
+    "sinon-chai": "~2.4.0"
+  }
+}
