@@ -1,5 +1,7 @@
 # gulp-spawn-mocha
 
+[![Build Status](https://travis-ci.org/KenPowers/gulp-spawn-mocha.png?branch=master)](https://travis-ci.org/KenPowers/gulp-spawn-mocha)
+
 This is a plugin for [gulp][gulp] which runs [Mocha][mocha] tests in a child
 process. Each time tests are run a new child process is created meaning the
 test environment always starts clean and modules are never cached.
