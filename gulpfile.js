@@ -2,7 +2,7 @@ var gulp = require('gulp'),
     mocha = require('./lib');
 
 gulp.task('test', function () {
-  return test().on('error', function (e) {
+  return test('spec').on('error', function (e) {
     throw e;
   });
 });
@@ -12,9 +12,9 @@ gulp.task('default', function () {
   test();
 });
 
-function test() {
+function test(reporter) {
   return gulp.src(['test/*.test.js'], {read: false}).pipe(mocha({
     r: 'test/setup.js',
-    R: 'nyan'
+    R: reporter || 'nyan'
   })).on('error', console.warn.bind(console));
 }
