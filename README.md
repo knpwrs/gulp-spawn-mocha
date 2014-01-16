@@ -4,7 +4,11 @@
 
 This is a plugin for [gulp][gulp] which runs [Mocha][mocha] tests in a child
 process. Each time tests are run a new child process is created meaning the
-test environment always starts clean and modules are never cached.
+test environment always starts clean and modules are never cached. This also
+means that if your tests crash then an `error` event is emitted rather than
+your whole `gulp` process crashing (good for watching). It is simple enough to
+make gulp crash when necessary (e.g., for continuous integration) by throwing
+the error as outlined below.
 
 ## Usage
 
