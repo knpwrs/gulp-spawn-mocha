@@ -1,14 +1,16 @@
 describe('gulp-spawn-mocha tests', function () {
   var mocha = require('../lib'),
       through = require('through'),
-      proc = require('child_process');
+      proc = require('child_process'),
+      PluginError = require('gulp-util').PluginError;
 
   beforeEach(function () {
     sinon.stub(proc, 'spawn');
+    this.childOn = sinon.stub();
     proc.spawn.returns({
       stdout: sinon.stub(through()),
       stderr: sinon.stub(through()),
-      on: sinon.stub()
+      on: this.childOn
     });
   });
 
@@ -53,5 +55,15 @@ describe('gulp-spawn-mocha tests', function () {
     var stream = this.stream = mocha({foo: 'bar', b: ['oof', 'rab']});
     stream.end();
     proc.spawn.should.be.calledWith(sinon.match.string, ['--foo', 'bar', '-b', 'oof', '-b', 'rab']);
+  });
+
+  it('should handle errors from mocha', function () {
+    this.childOn.yields(-1);
+    var stream = this.stream = mocha();
+    sinon.stub(stream, 'emit');
+    stream.emit.withArgs('error').returns();
+    stream.end();
+    this.childOn.should.be.calledOnce;
+    stream.emit.should.be.calledWith('error', sinon.match.instanceOf(PluginError));
   });
 });
