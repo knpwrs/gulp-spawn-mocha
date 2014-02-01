@@ -2,13 +2,15 @@
 
 [![Build Status](https://travis-ci.org/KenPowers/gulp-spawn-mocha.png?branch=master)](https://travis-ci.org/KenPowers/gulp-spawn-mocha)
 
-This is a plugin for [gulp][gulp] which runs [Mocha][mocha] tests in a child
-process. Each time tests are run a new child process is created meaning the
-test environment always starts clean and modules are never cached. This also
-means that if your tests crash then an `error` event is emitted rather than
-your whole `gulp` process crashing (good for watching). It is simple enough to
-make gulp crash when necessary (e.g., for continuous integration) by throwing
-the error as outlined below.
+This is a plugin for [gulp][gulp] which runs [Mocha][mocha] tests in a
+separate process from the `gulp` process. Each time tests are run a new child
+process is created meaning the test environment always starts cleanly (i.e.,
+globals are reset as are non- enumerable properties defined on native
+prototypes via `Object.defineProperty`. This also means that if your tests
+crash the node process (e.g., `process.exit(-1)`.) then an `error` event is
+emitted rather than your whole `gulp` process crashing (good for watching). It
+is simple enough to make gulp crash when necessary (e.g., for continuous
+integration) by throwing the error as outlined below.
 
 ## Usage
 
@@ -44,13 +46,13 @@ gulp.task('default', function () {
 function test() {
   return gulp.src(['test/*.test.js'], {read: false}).pipe(mocha({
     r: 'test/setup.js',
-    R: 'nyan'
+    R: 'spec'
   })).on('error', console.warn.bind(console));
 }
 ```
 
 The `test` *function* will run the `mocha` executable telling it to require
-`test/setup.js` and use the `nyan` reporter -- if there is an error it will
+`test/setup.js` and use the `spec` reporter -- if there is an error it will
 output a warning to the console. See `mocha -h` for additional options.
 
 The `test` *task* will throw an error, crashing `gulp` (good for continuous
@@ -59,6 +61,14 @@ integration environments).
 The `default` task will watch for changes and execute tests whenever a change
 is detected. It will also execute tasks immediately without waiting for a
 change.
+
+## This or `gulp-mocha`?
+
+The original `gulp-mocha` is fine in most circumstances. If you need your
+tests to run as a separate process (or a separate process is simply your
+preference for the reasons specified above) or you need to use a custom
+version of Mocha (e.g., a fork with bug fixes or custom functionality) then
+you should use this plugin.
 
 ## License
 
