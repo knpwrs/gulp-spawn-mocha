@@ -24,7 +24,7 @@ stream.pipe(mocha({
 
 The only special option is `bin`. You can set `bin` to be a path to a `mocha`
 executable to use instead of the one bundled with this plugin. Currently, this
-plugin comes with mocha `~1.16.2`. All other options are properly prefixed
+plugin comes with mocha `~1.17.1`. All other options are properly prefixed
 with either `-` or `--` and passed to the `mocha` executable. See the
 following example usage:
 
