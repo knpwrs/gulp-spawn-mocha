@@ -24,9 +24,10 @@ stream.pipe(mocha({
 
 The only special option is `bin`. You can set `bin` to be a path to a `mocha`
 executable to use instead of the one bundled with this plugin. Currently, this
-plugin comes with mocha `~1.17.1`. All other options are properly prefixed
-with either `-` or `--` and passed to the `mocha` executable. See the
-following example usage:
+plugin comes with mocha `~1`, meaning that on each `npm install` the latest
+`1.x` version of `mocha` will be installed. All other options are properly
+prefixed with either `-` or `--` and passed to the `mocha` executable. See
+the following example usage:
 
 ```javascript
 var gulp = require('gulp'),
