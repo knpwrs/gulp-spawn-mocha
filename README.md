@@ -47,7 +47,9 @@ gulp.task('default', function () {
 function test() {
   return gulp.src(['test/*.test.js'], {read: false}).pipe(mocha({
     r: 'test/setup.js',
-    R: 'spec'
+    R: 'spec',
+    c: true,
+    debug: true
   })).on('error', console.warn.bind(console));
 }
 ```
