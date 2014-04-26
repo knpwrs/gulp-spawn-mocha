@@ -26,8 +26,9 @@ The only special option is `bin`. You can set `bin` to be a path to a `mocha`
 executable to use instead of the one bundled with this plugin. Currently, this
 plugin comes with mocha `~1`, meaning that on each `npm install` the latest
 `1.x` version of `mocha` will be installed. All other options are properly
-prefixed with either `-` or `--` and passed to the `mocha` executable. See
-the following example usage:
+prefixed with either `-` or `--` and passed to the `mocha` executable. Any
+arguments which do not take a value (e.g., `c`, `--colors`, or `debug`) should
+just have a value of `true`. See the following example usage:
 
 ```javascript
 var gulp = require('gulp'),
