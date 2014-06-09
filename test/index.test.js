@@ -51,6 +51,12 @@ describe('gulp-spawn-mocha tests', function () {
     proc.spawn.should.be.calledWith('foo mocha', []);
   });
 
+  it('should allow for a custom environment', function () {
+    var stream = this.stream = mocha({env: {"FOO" : "BAR"}});
+    stream.end();
+    proc.spawn.should.be.calledWith(sinon.match.any, sinon.match.any, sinon.match({env: {"FOO" : "BAR"}}));
+  });
+
   it('should pass arguments to mocha', function () {
     var stream = this.stream = mocha({foo: 'bar', b: ['oof', 'rab']});
     stream.end();
