@@ -22,12 +22,15 @@ stream.pipe(mocha({
 }))
 ```
 
-The only special option is `bin`. You can set `bin` to be a path to a `mocha`
-executable to use instead of the one bundled with this plugin. Currently, this
-plugin comes with mocha `~1`, meaning that on each `npm install` the latest
-`1.x` version of `mocha` will be installed. All other options are properly
-prefixed with either `-` or `--` and passed to the `mocha` executable. Any
-arguments which do not take a value (e.g., `c`, `colors`, or `debug`) should
+There are two special options: `bin` and `env`. You can set `bin` to be a path 
+to a `mocha` executable to use instead of the one bundled with this plugin. You 
+can pass an object underneath `env` to override the environment variables that
+the child process will be spawend into. 
+
+Currently, this plugin comes with mocha `~1`, meaning that on each `npm install` 
+the latest `1.x` version of `mocha` will be installed. All other options are 
+properly prefixed with either `-` or `--` and passed to the `mocha` executable. 
+Any arguments which do not take a value (e.g., `c`, `colors`, or `debug`) should
 just have a value of `true`. See the following example usage:
 
 ```javascript
@@ -65,6 +68,27 @@ integration environments).
 The `default` task will watch for changes and execute tests whenever a change
 is detected. It will also execute tasks immediately without waiting for a
 change.
+
+### Custom Environment Variables
+
+As mentioned above an object provided underneath the `env` options key will
+allow you to specify a custom environment.  This is useful, for example, to run
+your tests in a different NODE_ENV than the default.  Such a gulp task would
+look like:
+
+```javascript
+var gulp = require('gulp'),
+    mocha = require('gulp-spawn-mocha');
+
+gulp.task('test', function() {
+  return gulp
+    .src(['test/*.test.js'])
+    .pipe(mocha({
+      env: {'NODE_ENV': 'test'}
+    }));
+});
+
+```
 
 ## This or `gulp-mocha`?
 
