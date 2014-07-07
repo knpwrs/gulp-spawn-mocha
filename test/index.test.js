@@ -75,7 +75,7 @@ describe('gulp-spawn-mocha tests', function () {
     sinon.stub(stream, 'emit');
     stream.emit.withArgs('error').returns();
     stream.end();
-    this.childOn.should.be.calledOnce;
+    this.childOn.should.be.calledTwice;
     stream.emit.should.be.calledWith('error', sinon.match.instanceOf(PluginError));
   });
 });
