@@ -39,7 +39,7 @@ describe('gulp-spawn-mocha tests', function () {
   });
 
   it('should default to proper binary', function () {
-    var bin = require('path').join(__dirname, '..', 'node_modules', '.bin', 'mocha');
+    var bin = require('path').join(require.resolve('mocha'), '..', 'bin', 'mocha');
     var stream = this.stream = mocha();
     stream.end();
     proc.spawn.should.be.calledWith(bin, []);

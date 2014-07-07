@@ -22,16 +22,22 @@ stream.pipe(mocha({
 }))
 ```
 
-There are two special options: `bin` and `env`. You can set `bin` to be a path 
-to a `mocha` executable to use instead of the one bundled with this plugin. You 
-can pass an object underneath `env` to override the environment variables that
-the child process will be spawend into. 
+This plugin defines `mocha` `~1` as a `peerDependency` meaning that you can
+define a dependency on any version of `mocha` in your `package.json` and that
+version will be used to run tests. If you don't specify a `mocha` in your
+package.json, then the latest `1.x` version will automatically be installed.
 
-Currently, this plugin comes with mocha `~1`, meaning that on each `npm install` 
-the latest `1.x` version of `mocha` will be installed. All other options are 
-properly prefixed with either `-` or `--` and passed to the `mocha` executable. 
-Any arguments which do not take a value (e.g., `c`, `colors`, or `debug`) should
-just have a value of `true`. See the following example usage:
+There are two special options: `bin` and `env`. You can set `bin` to be a path
+to a `mocha` executable to use instead of the one this plugin looks for by
+default. This is useful if you want to use a fork of `mocha` which goes by a
+different name. You can pass an object as the `env` option to set the
+environment variables that the child process will have access to (key-value
+pairs, see [child_process::spawn][spawn]).
+
+All other options are properly prefixed with either `-` or `--` and passed to
+the `mocha` executable. Any arguments which do not take a value (e.g., `c`,
+`colors`, or `debug`) should just have a value of `true`. See the following
+example usage:
 
 ```javascript
 var gulp = require('gulp'),
@@ -124,3 +130,4 @@ SOFTWARE.
 
   [gulp]: http://gulpjs.com/ "gulp.js"
   [mocha]: http://visionmedia.github.io/mocha/ "Mocha"
+  [spawn]: http://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options "child_process::spawn"

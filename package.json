@@ -29,12 +29,15 @@
   "dependencies": {
     "through": "~2.3.4",
     "lodash": "~2.4.1",
-    "mocha": "~1",
     "gulp-util": "~2.2.10"
+  },
+  "peerDependencies": {
+    "mocha": "~1"
   },
   "devDependencies": {
     "gulp": "~3.2.4",
     "chai": "~1.8.1",
+    "mocha": "~1",
     "sinon": "~1.7.3",
     "sinon-chai": "~2.4.0"
   },
