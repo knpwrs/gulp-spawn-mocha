@@ -1,6 +1,6 @@
 {
   "name": "gulp-spawn-mocha",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Runs Mocha as a child process.",
   "main": "lib/index.js",
   "scripts": {
