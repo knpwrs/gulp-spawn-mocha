@@ -29,7 +29,8 @@
   "dependencies": {
     "through": "~2.3.4",
     "lodash": "~2.4.1",
-    "gulp-util": "~2.2.10"
+    "gulp-util": "~2.2.10",
+    "cross-spawn": "~0.1.6"
   },
   "peerDependencies": {
     "mocha": "~1"

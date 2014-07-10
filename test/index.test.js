@@ -1,7 +1,7 @@
 describe('gulp-spawn-mocha tests', function () {
   var mocha = require('../lib'),
       through = require('through'),
-      proc = require('child_process'),
+      proc = require('../lib/cross-proc'),
       PluginError = require('gulp-util').PluginError;
 
   beforeEach(function () {
