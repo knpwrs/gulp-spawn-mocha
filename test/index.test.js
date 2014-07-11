@@ -48,12 +48,12 @@ describe('gulp-spawn-mocha tests', function () {
     });
 
     it('should default to proper binary (win32)', function () {
-      var platform = process.platform;
-      process.platform = 'win32';
+      sinon.stub(proc, 'getPlatform').returns('win32');
       var stream = this.stream = mocha();
       stream.end();
+      proc.getPlatform.should.be.calledOnce;
       proc.spawn.should.be.calledWith(bin + '.cmd', []);
-      process.platform = platform;
+      proc.getPlatform.restore();
     });
   });
 
