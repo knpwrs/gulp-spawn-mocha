@@ -38,12 +38,25 @@ describe('gulp-spawn-mocha tests', function () {
     proc.spawn.should.be.calledWith(sinon.match.string, this.stream._files);
   });
 
-  it('should default to proper binary', function () {
+  describe('binary location', function () {
     var bin = require('path').join(require.resolve('mocha'), '..', 'bin', 'mocha');
-    var stream = this.stream = mocha();
-    stream.end();
-    proc.spawn.should.be.calledWith(bin, []);
+
+    it('should default to proper binary', function () {
+      var stream = this.stream = mocha();
+      stream.end();
+      proc.spawn.should.be.calledWith(bin, []);
+    });
+
+    it('should default to proper binary (win32)', function () {
+      var platform = process.platform;
+      process.platform = 'win32';
+      var stream = this.stream = mocha();
+      stream.end();
+      proc.spawn.should.be.calledWith(bin + '.cmd', []);
+      process.platform = platform;
+    });
   });
+
 
   it('should allow for a custom mocha binary', function () {
     var stream = this.stream = mocha({bin: 'foo mocha'});
