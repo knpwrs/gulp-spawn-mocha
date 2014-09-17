@@ -27,9 +27,10 @@
   },
   "homepage": "https://github.com/KenPowers/gulp-spawn-mocha",
   "dependencies": {
-    "through": "~2.3.4",
+    "gulp-util": "~2.2.10",
+    "inflection": "~1.4.2",
     "lodash": "~2.4.1",
-    "gulp-util": "~2.2.10"
+    "through": "~2.3.4"
   },
   "peerDependencies": {
     "mocha": "~1"

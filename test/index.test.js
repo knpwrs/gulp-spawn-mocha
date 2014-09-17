@@ -58,9 +58,9 @@ describe('gulp-spawn-mocha tests', function () {
   });
 
   it('should pass arguments to mocha', function () {
-    var stream = this.stream = mocha({foo: 'bar', b: ['oof', 'rab']});
+    var stream = this.stream = mocha({foo: 'bar', b: ['oof', 'rab'], debugBrk: true, isAString: true, R: 'spec', S: true});
     stream.end();
-    proc.spawn.should.be.calledWith(sinon.match.string, ['--foo', 'bar', '-b', 'oof', '-b', 'rab']);
+    proc.spawn.should.be.calledWith(sinon.match.string, ['--foo', 'bar', '-b', 'oof', '-b', 'rab', '--debug-brk', '--is-a-string', '-R', 'spec', '-S']);
   });
 
   it('should only pass string or number values of arguments to mocha', function() {

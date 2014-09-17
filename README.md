@@ -36,8 +36,10 @@ pairs, see [child_process::spawn][spawn]).
 
 All other options are properly prefixed with either `-` or `--` and passed to
 the `mocha` executable. Any arguments which do not take a value (e.g., `c`,
-`colors`, or `debug`) should just have a value of `true`. See the following
-example usage:
+`colors`, or `debug`) should just have a value of `true`. Any arguments which
+have dashes in the name can be specified by using camelCase (i.e., `debugBrk`
+for `--debug-brk`, `inlineDiffs` for `--inline-diffs`, etc) so you don't have
+to use strings for the argument names. See the following example usage:
 
 ```javascript
 var gulp = require('gulp'),
@@ -59,6 +61,7 @@ function test() {
     r: 'test/setup.js',
     R: 'spec',
     c: true,
+    inlineDiffs: true,
     debug: true
   })).on('error', console.warn.bind(console));
 }
