@@ -39,7 +39,7 @@ describe('gulp-spawn-mocha tests', function () {
   });
 
   describe('binary location', function () {
-    var bin = require('path').join(require.resolve('mocha'), '..', 'bin', 'mocha');
+    var bin = require('path').join(process.cwd(), 'node_modules', '.bin', 'mocha');
 
     it('should default to proper binary', function () {
       var stream = this.stream = mocha();
