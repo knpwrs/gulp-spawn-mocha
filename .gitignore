@@ -1,15 +1,3 @@
-lib-cov
-*.seed
+coverage
 *.log
-*.csv
-*.dat
-*.out
-*.pid
-*.gz
-
-pids
-logs
-results
-build
-
 node_modules

@@ -15,6 +15,7 @@ gulp.task('default', function () {
 function test(reporter) {
   return gulp.src(['test/*.test.js'], {read: false}).pipe(mocha({
     r: 'test/setup.js',
-    R: typeof reporter === 'string' ? reporter : 'nyan'
+    R: typeof reporter === 'string' ? reporter : 'nyan',
+    coverage: true
   })).on('error', console.warn.bind(console));
 }
