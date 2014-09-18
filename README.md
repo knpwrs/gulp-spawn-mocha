@@ -173,7 +173,7 @@ after_success: ./node_modules/.bin/coveralls --verbose < coverage/lcov.info
 
 The `coveralls` module requires no additional configuration to publish to
 Coveralls as long as both Travis and Coveralls are configured for the same
-repository.
+*public* repository. See [`node-coveralls`][ncov] for more details.
 
 ## This or `gulp-mocha`?
 
@@ -213,3 +213,4 @@ SOFTWARE.
   [ist]: https://github.com/gotwarlost/istanbul "Istanbul"
   [travis]: https://travis-ci.org/ "Travis CI"
   [coveralls]: https://coveralls.io/ "Coveralls"
+  [ncov]: https://github.com/cainus/node-coveralls "node-coveralls"
