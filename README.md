@@ -1,11 +1,11 @@
 # gulp-spawn-mocha
 
-[![Build Status](https://travis-ci.org/KenPowers/gulp-spawn-mocha.png?branch=master)](https://travis-ci.org/KenPowers/gulp-spawn-mocha)
+[![Build Status](https://travis-ci.org/KenPowers/gulp-spawn-mocha.png?branch=master)](https://travis-ci.org/KenPowers/gulp-spawn-mocha) [![Coverage Status](https://coveralls.io/repos/KenPowers/gulp-spawn-mocha/badge.png)](https://coveralls.io/r/KenPowers/gulp-spawn-mocha)
 
 This is a plugin for [gulp][gulp] which runs [Mocha][mocha] tests in a
 separate process from the `gulp` process. Each time tests are run a new child
 process is created meaning the test environment always starts cleanly (i.e.,
-globals are reset as are non- enumerable properties defined on native
+globals are reset as are non-enumerable properties defined on native
 prototypes via `Object.defineProperty`. This also means that if your tests
 crash the node process (e.g., `process.exit(-1)`.) then an `error` event is
 emitted rather than your whole `gulp` process crashing (good for watching). It
@@ -99,6 +99,82 @@ gulp.task('test', function() {
 
 ```
 
+### Code Coverage
+
+Because of the nature of this plugin launching an external process to run
+tests, the standard coverage plugins for gulp will not work with this module.
+Starting in version `0.4.0` [Istanbul][ist] is included as a peer dependency
+in order to enable code coverage reports without having to instrument code on
+disk. You can use it by passing the `istanbul` option.
+
+Set `istanbul` to `true` if you want to use all the default settings:
+
+```javascript
+gulp.task('test', function() {
+  return gulp
+    .src(['test/*.test.js'])
+    .pipe(mocha({
+      istanbul: true
+    }));
+});
+```
+
+This will launch a process equivilant to:
+
+```
+istanbul cover -- _mocha
+```
+
+The default settings of Istanbul output to a directory in the `cwd` called
+`coverage`.
+
+If you want to pass options to Istanbul, you can do that as well:
+
+```javascript
+gulp.task('test', function() {
+  return gulp
+    .src(['test/*.test.js'])
+    .pipe(mocha({
+      istanbul: {
+        dir: 'path/to/custom/output/directory'
+      }
+    }));
+});
+```
+
+This will launch a process equivilant to:
+
+```
+istanbul cover --dir path/to/custom/output/directory -- _mocha
+```
+
+This will output do a directory called `path/to/custom/output/directory`.
+
+#### Publishing Coverage Reports
+
+Assuming you are using [Travis][travis] for CI and [Coveralls][coveralls] for
+publishing code coverage reports it is very easy to automatically have Travis
+publish to Coveralls when tests are run successfully. First make sure you
+install and save the `coveralls` module as a dev dependency:
+
+```
+npm i --save-dev coveralls
+```
+
+Then edit your `.travis.yml` to have an `after_success` command:
+
+```yaml
+language: node_js
+node_js:
+  - "0.11"
+  - "0.10"
+after_success: ./node_modules/.bin/coveralls < coverage/lcov.info
+```
+
+The `coveralls` module requires no additional configuration to publish to
+Coveralls as long as both Travis and Coveralls are configured for the same
+repository.
+
 ## This or `gulp-mocha`?
 
 The original `gulp-mocha` is fine in most circumstances. If you need your
@@ -133,4 +209,7 @@ SOFTWARE.
 
   [gulp]: http://gulpjs.com/ "gulp.js"
   [mocha]: http://visionmedia.github.io/mocha/ "Mocha"
-  [spawn]: http://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options "child_process::spawn"
+  [fork]: http://nodejs.org/api/child_process.html#child_process_child_process_fork_modulepath_args_options "child_process::fork"
+  [ist]: https://github.com/gotwarlost/istanbul "Istanbul"
+  [travis]: https://travis-ci.org/ "Travis CI"
+  [coveralls]: https://coveralls.io/ "Coveralls"
