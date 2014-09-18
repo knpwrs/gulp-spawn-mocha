@@ -5,9 +5,9 @@ describe('gulp-spawn-mocha tests', function () {
       PluginError = require('gulp-util').PluginError;
 
   beforeEach(function () {
-    sinon.stub(proc, 'spawn');
+    sinon.stub(proc, 'fork');
     this.childOn = sinon.stub();
-    proc.spawn.returns({
+    proc.fork.returns({
       stdout: sinon.stub(through()),
       stderr: sinon.stub(through()),
       on: this.childOn
@@ -16,14 +16,10 @@ describe('gulp-spawn-mocha tests', function () {
 
   afterEach(function () {
     // Common assertions
-    proc.spawn.should.be.calledOnce;
-    proc.spawn.should.be.calledWith(sinon.match.string, sinon.match.array);
-    this.stream._child.stdout.pipe.should.be.calledOnce;
-    this.stream._child.stdout.pipe.should.be.calledWith(process.stdout);
-    this.stream._child.stderr.pipe.should.be.calledOnce;
-    this.stream._child.stderr.pipe.should.be.calledWith(process.stderr);
-    // Restore spawn functionality
-    proc.spawn.restore();
+    proc.fork.should.be.calledOnce;
+    proc.fork.should.be.calledWith(sinon.match.string, sinon.match.array);
+    // Restore fork functionality
+    proc.fork.restore();
   });
 
   it('should buffer filenames and pass them to mocha', function () {
@@ -33,40 +29,40 @@ describe('gulp-spawn-mocha tests', function () {
       stream.write({path: path});
     });
     stream._files.should.deep.equal(paths);
-    proc.spawn.should.not.be.called;
+    proc.fork.should.not.be.called;
     stream.end();
-    proc.spawn.should.be.calledWith(sinon.match.string, this.stream._files);
+    proc.fork.should.be.calledWith(sinon.match.string, this.stream._files);
   });
 
   it('should default to proper binary', function () {
     var bin = require('path').join(require.resolve('mocha'), '..', 'bin', 'mocha');
     var stream = this.stream = mocha();
     stream.end();
-    proc.spawn.should.be.calledWith(bin, []);
+    proc.fork.should.be.calledWith(bin, []);
   });
 
   it('should allow for a custom mocha binary', function () {
     var stream = this.stream = mocha({bin: 'foo mocha'});
     stream.end();
-    proc.spawn.should.be.calledWith('foo mocha', []);
+    proc.fork.should.be.calledWith('foo mocha', []);
   });
 
   it('should allow for a custom environment', function () {
     var stream = this.stream = mocha({env: {'FOO' : 'BAR'}});
     stream.end();
-    proc.spawn.should.be.calledWith(sinon.match.any, sinon.match.any, sinon.match({env: {'FOO' : 'BAR'}}));
+    proc.fork.should.be.calledWith(sinon.match.any, sinon.match.any, sinon.match({env: {'FOO' : 'BAR'}}));
   });
 
   it('should pass arguments to mocha', function () {
     var stream = this.stream = mocha({foo: 'bar', b: ['oof', 'rab'], debugBrk: true, isAString: true, R: 'spec', S: true});
     stream.end();
-    proc.spawn.should.be.calledWith(sinon.match.string, ['--foo', 'bar', '-b', 'oof', '-b', 'rab', '--debug-brk', '--is-a-string', '-R', 'spec', '-S']);
+    proc.fork.should.be.calledWith(sinon.match.string, ['--foo', 'bar', '-b', 'oof', '-b', 'rab', '--debug-brk', '--is-a-string', '-R', 'spec', '-S']);
   });
 
   it('should only pass string or number values of arguments to mocha', function() {
     var stream = this.stream = mocha({foo: 'bar', n: 42, colors: true, debug: undefined, S: null});
     stream.end();
-    proc.spawn.should.be.calledWith(sinon.match.string, ['--foo', 'bar', '-n', 42, '--colors', '--debug', '-S']);
+    proc.fork.should.be.calledWith(sinon.match.string, ['--foo', 'bar', '-n', 42, '--colors', '--debug', '-S']);
   });
 
   it('should handle errors from mocha', function () {
