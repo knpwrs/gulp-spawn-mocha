@@ -78,6 +78,20 @@ The `default` task will watch for changes and execute tests whenever a change
 is detected. It will also execute tasks immediately without waiting for a
 change.
 
+### Conditional Arguments
+
+If the value of an argument is falsy (but not `0`) then it will not be passed
+to `mocha`. This is useful, for example, if you want to enable debugging only
+when a certain environment variable is true. Example:
+
+```javascript
+var isDebug = process.env.NODE_ENV === 'debug';
+stream.pipe(mocha({
+    debugBrk: isDebug,
+    istanbul: !isDebug
+}));
+```
+
 ### Custom Environment Variables
 
 As mentioned above an object provided underneath the `env` options key will

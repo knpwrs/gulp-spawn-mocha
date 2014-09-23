@@ -56,16 +56,10 @@ describe('gulp-spawn-mocha tests', function () {
       proc.fork.should.be.calledWith(sinon.match.any, sinon.match.any, sinon.match({env: {'FOO' : 'BAR'}}));
     });
 
-    it('should pass arguments to mocha', function () {
-      var stream = this.stream = mocha({foo: 'bar', b: ['oof', 'rab'], debugBrk: true, isAString: true, R: 'spec', S: true});
+    it('should pass arguments to mocha, properly prefixing, dashifying, and ignoring', function () {
+      var stream = this.stream = mocha({foo: 'bar', b: ['oof', 'rab'], debugBrk: true, isAString: true, R: 'spec', S: true, T: false, U: null, V: undefined});
       stream.end();
       proc.fork.should.be.calledWith(sinon.match.string, ['--foo', 'bar', '-b', 'oof', '-b', 'rab', '--debug-brk', '--is-a-string', '-R', 'spec', '-S']);
-    });
-
-    it('should only pass string or number values of arguments to mocha', function() {
-      var stream = this.stream = mocha({foo: 'bar', n: 42, colors: true, debug: undefined, S: null});
-      stream.end();
-      proc.fork.should.be.calledWith(sinon.match.string, ['--foo', 'bar', '-n', 42, '--colors', '--debug', '-S']);
     });
 
     it('should handle errors from mocha', function () {
