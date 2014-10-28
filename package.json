@@ -35,13 +35,13 @@
   },
   "peerDependencies": {
     "istanbul": "~0.3",
-    "mocha": "~1"
+    "mocha": "~2"
   },
   "devDependencies": {
     "gulp": "~3.2.4",
     "chai": "~1.8.1",
     "istanbul": "~0.3",
-    "mocha": "~1",
+    "mocha": "~2",
     "sinon": "~1.7.3",
     "sinon-chai": "~2.4.0"
   },

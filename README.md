@@ -22,10 +22,10 @@ stream.pipe(mocha({
 }))
 ```
 
-This plugin defines `mocha` `~1` as a `peerDependency` meaning that you can
+This plugin defines `mocha` `~2` as a `peerDependency` meaning that you can
 define a dependency on any version of `mocha` in your `package.json` and that
 version will be used to run tests. If you don't specify a `mocha` in your
-package.json, then the latest `1.x` version will automatically be installed.
+package.json, then the latest `2.x` version will automatically be installed.
 
 There are two special options: `bin` and `env`. You can set `bin` to be a path
 to a `mocha` executable to use instead of the one this plugin looks for by
