@@ -222,7 +222,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
   [gulp]: http://gulpjs.com/ "gulp.js"
-  [mocha]: http://visionmedia.github.io/mocha/ "Mocha"
+  [mocha]: http://mochajs.org/ "Mocha"
   [fork]: http://nodejs.org/api/child_process.html#child_process_child_process_fork_modulepath_args_options "child_process::fork"
   [ist]: https://github.com/gotwarlost/istanbul "Istanbul"
   [travis]: https://travis-ci.org/ "Travis CI"
