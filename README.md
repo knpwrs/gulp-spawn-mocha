@@ -22,17 +22,19 @@ stream.pipe(mocha({
 }))
 ```
 
-This plugin defines `mocha` `~2` as a `peerDependency` meaning that you can
-define a dependency on any version of `mocha` in your `package.json` and that
-version will be used to run tests. If you don't specify a `mocha` in your
-package.json, then the latest `2.x` version will automatically be installed.
+This plugin uses mocha version `^2` and as of version `2.0.0` matches the
+major version of mocha. Please note that mocha is no longer a peer dependency
+as peer dependencies are being deprecated. See [npm/npm#6565][npm] for more
+info.
 
 There are two special options: `bin` and `env`. You can set `bin` to be a path
 to a `mocha` executable to use instead of the one this plugin looks for by
 default. This is useful if you want to use a fork of `mocha` which goes by a
-different name. You can pass an object as the `env` option to set the
-environment variables that the child process will have access to (key-value
-pairs, see [child_process::spawn][spawn]).
+different name or a different executable altogether.
+
+You can pass an object as the `env` option to set the environment variables
+that the child process will have access to (key-value pairs, see
+[child_process::spawn][spawn]).
 
 All other options are properly prefixed with either `-` or `--` and passed to
 the `mocha` executable. Any arguments which do not take a value (e.g., `c`,
@@ -117,9 +119,11 @@ gulp.task('test', function() {
 
 Because of the nature of this plugin launching an external process to run
 tests, the standard coverage plugins for gulp will not work with this module.
-Starting in version `0.4.0` [Istanbul][ist] is included as a peer dependency
-in order to enable code coverage reports without having to instrument code on
-disk. You can use it by passing the `istanbul` option.
+Starting in version `0.4.0` [Istanbul][ist] is included in order to enable
+code coverage reports without having to instrument code on disk. You can use
+it by passing the `istanbul` option. As noted previously peer dependencies are
+being deprecated so Istanbul is no longer a peer dependency. See
+[npm/npm#6565][npm] for more info.
 
 Set `istanbul` to `true` if you want to use all the default settings:
 
@@ -228,3 +232,4 @@ SOFTWARE.
   [travis]: https://travis-ci.org/ "Travis CI"
   [coveralls]: https://coveralls.io/ "Coveralls"
   [ncov]: https://github.com/cainus/node-coveralls "node-coveralls"
+  [npm]: https://github.com/npm/npm/issues/6565
