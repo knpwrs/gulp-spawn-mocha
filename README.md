@@ -4,13 +4,11 @@
 
 This is a plugin for [gulp][gulp] which runs [Mocha][mocha] tests in a
 separate process from the `gulp` process. Each time tests are run a new child
-process is created meaning the test environment always starts cleanly (i.e.,
+process is created meaning the test environment always starts cleanly, i.e.,
 globals are reset as are non-enumerable properties defined on native
 prototypes via `Object.defineProperty`. This also means that if your tests
 crash the node process (e.g., `process.exit(-1)`.) then an `error` event is
-emitted rather than your whole `gulp` process crashing (good for watching). It
-is simple enough to make gulp crash when necessary (e.g., for continuous
-integration) by throwing the error as outlined below.
+emitted rather than your whole `gulp` process crashing (good for watching).
 
 ## Usage
 
@@ -34,51 +32,45 @@ different name or a different executable altogether.
 
 You can pass an object as the `env` option to set the environment variables
 that the child process will have access to (key-value pairs, see
-[child_process::spawn][spawn]).
+[child_process::spawn][spawn]). These variables are merged with your current
+environment variables and sent to the mocha executable.
 
 All other options are properly prefixed with either `-` or `--` and passed to
 the `mocha` executable. Any arguments which do not take a value (e.g., `c`,
 `colors`, or `debug`) should just have a value of `true`. Any arguments which
 have dashes in the name can be specified by using camelCase (i.e., `debugBrk`
 for `--debug-brk`, `inlineDiffs` for `--inline-diffs`, etc) so you don't have
-to use strings for the argument names. See the following example usage:
+to use strings for the argument names. For an example, see this plugin's very
+own `gulpfile.js`:
 
 ```javascript
+const DEBUG = process.env.NODE_ENV === 'debug',
+      CI = process.env.CI === 'true';
+
 var gulp = require('gulp'),
-    mocha = require('gulp-spawn-mocha');
+    mocha = require('./lib');
 
 gulp.task('test', function () {
-  return test().on('error', function (e) {
-    throw e;
-  });
+  return gulp.src(['test/*.test.js'], {read: false})
+    .pipe(mocha({
+      debugBrk: DEBUG,
+      r: 'test/setup.js',
+      R: CI ? 'spec' : 'nyan',
+      istanbul: !DEBUG
+    }));
 });
 
-gulp.task('default', function () {
-  gulp.watch('{lib,test}/*', test);
-  test();
+gulp.task('default', ['test'], function () {
+  gulp.watch('{lib,test}/*', ['test']);
 });
-
-function test() {
-  return gulp.src(['test/*.test.js'], {read: false}).pipe(mocha({
-    r: 'test/setup.js',
-    R: 'spec',
-    c: true,
-    inlineDiffs: true,
-    debug: true
-  })).on('error', console.warn.bind(console));
-}
 ```
 
-The `test` *function* will run the `mocha` executable telling it to require
-`test/setup.js` and use the `spec` reporter -- if there is an error it will
-output a warning to the console. See `mocha -h` for additional options.
+With this setup the `nyan` reporter will be used in development and the `spec`
+reporter will be used in CI (Travis sets the `CI` environment variable to
+`true` automatically).
 
-The `test` *task* will throw an error, crashing `gulp` (good for continuous
-integration environments).
-
-The `default` task will watch for changes and execute tests whenever a change
-is detected. It will also execute tasks immediately without waiting for a
-change.
+The `default` task will execute tests and watch for changes and execute tests
+whenever a change is detected.
 
 ### Conditional Arguments
 
@@ -87,19 +79,19 @@ to `mocha`. This is useful, for example, if you want to enable debugging only
 when a certain environment variable is true. Example:
 
 ```javascript
-var isDebug = process.env.NODE_ENV === 'debug';
+const DEBUG = process.env.NODE_ENV === 'debug';
 stream.pipe(mocha({
-    debugBrk: isDebug,
-    istanbul: !isDebug
+    debugBrk: DEBUG,
+    istanbul: !DEBUG
 }));
 ```
 
 ### Custom Environment Variables
 
 As mentioned above an object provided underneath the `env` options key will
-allow you to specify a custom environment.  This is useful, for example, to run
-your tests in a different NODE_ENV than the default.  Such a gulp task would
-look like:
+allow you to specify a custom environment. This is useful, for example, to run
+your tests in a different NODE_ENV than the default. Such a gulp task would
+look like this:
 
 ```javascript
 var gulp = require('gulp'),
@@ -112,8 +104,10 @@ gulp.task('test', function() {
       env: {'NODE_ENV': 'test'}
     }));
 });
-
 ```
+
+These variables are merged with your current environment variables and sent to
+the mocha executable.
 
 ### Code Coverage
 
