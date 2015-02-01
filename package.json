@@ -6,10 +6,7 @@
   "scripts": {
     "test": "gulp test"
   },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/KenPowers/gulp-spawn-mocha.git"
-  },
+  "repository": "KenPowers/gulp-spawn-mocha",
   "keywords": [
     "gulpplugin",
     "mocha",
