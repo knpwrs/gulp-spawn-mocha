@@ -25,15 +25,18 @@ major version of mocha. Please note that mocha is no longer a peer dependency
 as peer dependencies are being deprecated. See [npm/npm#6565][npm] for more
 info.
 
-There are two special options: `bin` and `env`. You can set `bin` to be a path
-to a `mocha` executable to use instead of the one this plugin looks for by
-default. This is useful if you want to use a fork of `mocha` which goes by a
-different name or a different executable altogether.
+The plugin accepts these special options:
 
-You can pass an object as the `env` option to set the environment variables
-that the child process will have access to (key-value pairs, see
-[child_process::spawn][spawn]). These variables are merged with your current
-environment variables and sent to the mocha executable.
+* `bin`: a path to a `mocha` executable to use instead of the one this plugin 
+looks for by default. This is useful if you want to use a fork of `mocha` 
+which goes by a different name or a different executable altogether.
+* `env`: the environment variables that the child process will have access to
+(key-value pairs, see [child_process::spawn][spawn]). These variables are 
+merged with your current environment variables and sent to the mocha 
+executable.
+* `cwd`: the working directory for the child process. This can be used to put
+files that the test creates or reads from the working directory in a specific 
+directory, instead of the directory where you are running gulp from. 
 
 All other options are properly prefixed with either `-` or `--` and passed to
 the `mocha` executable. Any arguments which do not take a value (e.g., `c`,
