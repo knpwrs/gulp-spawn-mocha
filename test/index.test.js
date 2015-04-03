@@ -88,5 +88,11 @@ describe('gulp-spawn-mocha tests', function () {
       stream.end();
       proc.fork.should.be.calledWith(bin, ['cover', '--verbose', '--print', 'detail', '--', mbin]);
     });
+
+    it('can use a custom binary', function () {
+      var stream = this.stream = mocha({istanbul: {bin: 'isparta'}});
+      stream.end();
+      proc.fork.should.be.calledWith('isparta', ['cover', '--', mbin]);
+    });
   });
 });

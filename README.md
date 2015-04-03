@@ -160,7 +160,29 @@ This will launch a process equivilant to:
 istanbul cover --dir path/to/custom/output/directory -- _mocha
 ```
 
-This will output do a directory called `path/to/custom/output/directory`.
+This will output to a directory called `path/to/custom/output/directory`.
+
+Istanbul, like `mocha`, supports a custom `bin` option so you can use a custom
+fork of Istanbul:
+
+```javascript
+gulp.task('test', function() {
+  return gulp
+    .src(['test/*.test.js'])
+    .pipe(mocha({
+      istanbul: {
+        dir: 'path/to/custom/output/directory',
+        bin: require.resolve('isparta') + '/bin/isparta'
+      }
+    }));
+});
+```
+
+This will launch a process equivilant to:
+
+```
+./node_modules/isparta/bin/isparta cover --dir path/to/custom/output/directory -- _mocha
+```
 
 #### Publishing Coverage Reports
 
