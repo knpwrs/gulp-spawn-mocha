@@ -3,7 +3,8 @@ describe('gulp-spawn-mocha tests', function () {
       through = require('through'),
       proc = require('child_process'),
       join = require('path').join,
-      PluginError = require('gulp-util').PluginError;
+      PluginError = require('gulp-util').PluginError,
+      fs = require('fs');
 
   beforeEach(function () {
     sinon.stub(proc, 'fork');
@@ -70,6 +71,12 @@ describe('gulp-spawn-mocha tests', function () {
       stream.end();
       this.childOn.should.be.calledTwice;
       stream.emit.should.be.calledWith('error', sinon.match.instanceOf(PluginError));
+    });
+
+    it('should output a result.log file', function (done) {
+      var stream = this.stream = mocha({outstream: 'result.log'});
+      stream.end();
+      fs.existsSync('result.log') && done();
     });
   });
 
