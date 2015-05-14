@@ -73,10 +73,10 @@ describe('gulp-spawn-mocha tests', function () {
       stream.emit.should.be.calledWith('error', sinon.match.instanceOf(PluginError));
     });
 
-    it('should output a result.log file', function (done) {
+    it('should output a result.log file', function () {
       var stream = this.stream = mocha({outstream: 'result.log'});
       stream.end();
-      fs.existsSync('result.log') && done();
+      return fs.existsSync('result.log');
     });
   });
 
