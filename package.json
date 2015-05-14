@@ -36,8 +36,7 @@
     "coveralls": "^2.11.1",
     "gulp": "^3.8.10",
     "sinon": "~1.7.3",
-    "sinon-chai": "~2.4.0",
-    "through2": "^0.6.5"
+    "sinon-chai": "~2.4.0"
   },
   "engines": {
     "node": ">= 0.9.0"
