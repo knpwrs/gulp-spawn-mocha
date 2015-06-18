@@ -44,8 +44,8 @@ the `mocha` executable. Any arguments which do not take a value (e.g., `c`,
 have dashes in the name can be specified by using camelCase (i.e., `debugBrk`
 for `--debug-brk`, `inlineDiffs` for `--inline-diffs`, etc) so you don't have
 to use strings for the argument names. Please note that the `gc` option must
-be specified as `exposeGc` (please see issue #21). For an example, see this
-plugin's very own `gulpfile.js`:
+be specified as `exposeGc` (please see [issue #21][21]). For an example, see
+this plugin's very own `gulpfile.js`:
 
 ```javascript
 const DEBUG = process.env.NODE_ENV === 'debug',
@@ -253,3 +253,4 @@ SOFTWARE.
   [coveralls]: https://coveralls.io/ "Coveralls"
   [ncov]: https://github.com/cainus/node-coveralls "node-coveralls"
   [npm]: https://github.com/npm/npm/issues/6565
+  [21]: https://github.com/KenPowers/gulp-spawn-mocha/issues/21 "Issue 21: Setting `gc` option calls `mocha --gc` instead of `mocha -gc`"
