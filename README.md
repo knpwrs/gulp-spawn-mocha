@@ -36,15 +36,16 @@ merged with your current environment variables and sent to the mocha
 executable.
 * `cwd`: the working directory for the child process. This can be used to put
 files that the test creates or reads from the working directory in a specific 
-directory, instead of the directory where you are running gulp from. 
+directory, instead of the directory where you are running gulp from.
 
 All other options are properly prefixed with either `-` or `--` and passed to
 the `mocha` executable. Any arguments which do not take a value (e.g., `c`,
 `colors`, or `debug`) should just have a value of `true`. Any arguments which
 have dashes in the name can be specified by using camelCase (i.e., `debugBrk`
 for `--debug-brk`, `inlineDiffs` for `--inline-diffs`, etc) so you don't have
-to use strings for the argument names. For an example, see this plugin's very
-own `gulpfile.js`:
+to use strings for the argument names. Please note that the `gc` option must
+be specified as `exposeGc` (please see issue #21). For an example, see this
+plugin's very own `gulpfile.js`:
 
 ```javascript
 const DEBUG = process.env.NODE_ENV === 'debug',
