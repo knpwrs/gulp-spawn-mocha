@@ -213,6 +213,42 @@ The `coveralls` module requires no additional configuration to publish to
 Coveralls as long as both Travis and Coveralls are configured for the same
 *public* repository. See [`node-coveralls`][ncov] for more details.
 
+#### Output reports to a File
+
+You can pass `output` option to write a report to a writeable stream. If
+`output` is a string then a writeable stream will be created with `output` as
+its path. Note, if you are using `istanbul`, your reports content may contain
+`istanbul`'s result.
+
+Use file path:
+```js
+gulp.task('test', function () {
+  return gulp.src(['test/*.test.js'], {read: false})
+    .pipe(mocha({
+      debugBrk: DEBUG,
+      r: 'test/setup.js',
+      R: CI ? 'spec' : 'nyan',
+      istanbul: !DEBUG,
+      output: 'result.log'
+    }));
+});
+```
+
+Use file stream:
+```js
+gulp.task('test', function () {
+  return gulp.src(['test/*.test.js'], {read: false})
+    .pipe(mocha({
+      debugBrk: DEBUG,
+      r: 'test/setup.js',
+      R: CI ? 'spec' : 'nyan',
+      istanbul: !DEBUG,
+      output: fs.createWriteStream('result.log', {flags: 'w'})
+    }));
+});
+```
+
+
 ## This or `gulp-mocha`?
 
 The original `gulp-mocha` is fine in most circumstances. If you need your

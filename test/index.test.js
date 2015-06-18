@@ -3,14 +3,17 @@ describe('gulp-spawn-mocha tests', function () {
       through = require('through'),
       proc = require('child_process'),
       join = require('path').join,
-      PluginError = require('gulp-util').PluginError;
+      PluginError = require('gulp-util').PluginError,
+      fs = require('fs');
 
   beforeEach(function () {
     sinon.stub(proc, 'fork');
     this.childOn = sinon.stub();
+    this.childOut = sinon.stub(through());
+    this.childErr = sinon.stub(through());
     proc.fork.returns({
-      stdout: sinon.stub(through()),
-      stderr: sinon.stub(through()),
+      stdout: this.childOut,
+      stderr: this.childErr,
       on: this.childOn
     });
   });
@@ -43,7 +46,6 @@ describe('gulp-spawn-mocha tests', function () {
       proc.fork.should.be.calledWith(bin, []);
     });
 
-
     it('should allow for a custom mocha binary', function () {
       var stream = this.stream = mocha({bin: 'foo mocha'});
       stream.end();
@@ -70,6 +72,25 @@ describe('gulp-spawn-mocha tests', function () {
       stream.end();
       this.childOn.should.be.calledTwice;
       stream.emit.should.be.calledWith('error', sinon.match.instanceOf(PluginError));
+    });
+
+    it('can output to a writable stream from a string argument', function () {
+      var fakeStream = {};
+      sinon.stub(fs, 'createWriteStream').returns(fakeStream);
+      var stream = this.stream = mocha({output: 'result.log'});
+      stream.end();
+      fs.createWriteStream.should.be.calledWith('result.log');
+      fs.createWriteStream.restore();
+      this.childOut.pipe.should.be.calledWith(fakeStream);
+      this.childErr.pipe.should.be.calledWith(fakeStream);
+    });
+
+    it('can output to a writable stream', function () {
+      var fakeStream = {};
+      var stream = this.stream = mocha({output: fakeStream});
+      stream.end();
+      this.childOut.pipe.should.be.calledWith(fakeStream);
+      this.childErr.pipe.should.be.calledWith(fakeStream);
     });
   });
 
