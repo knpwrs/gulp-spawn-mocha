@@ -31,7 +31,7 @@ The plugin accepts these special options:
 looks for by default. This is useful if you want to use a fork of `mocha` 
 which goes by a different name or a different executable altogether.
 * `env`: the environment variables that the child process will have access to
-(key-value pairs, see [child_process::spawn][spawn]). These variables are 
+(key-value pairs, see [child_process::fork][fork]). These variables are 
 merged with your current environment variables and sent to the mocha 
 executable.
 * `cwd`: the working directory for the child process. This can be used to put
