@@ -213,7 +213,7 @@ The `coveralls` module requires no additional configuration to publish to
 Coveralls as long as both Travis and Coveralls are configured for the same
 *public* repository. See [`node-coveralls`][ncov] for more details.
 
-#### Output reports to a File
+### Output Reports to a File
 
 You can pass `output` option to write a report to a writeable stream. If
 `output` is a string then a writeable stream will be created with `output` as
