@@ -64,6 +64,15 @@ describe('gulp-spawn-mocha tests', function () {
       proc.fork.should.be.calledWith(sinon.match.string, ['--foo', 'bar', '-b', 'oof', '-b', 'rab', '--debug-brk', '--is-a-string', '-R', 'spec', '-S']);
     });
 
+    it('should handle non-errors from mocha', function () {
+      this.childOn.withArgs('close').yields(0);
+      var stream = this.stream = mocha();
+      sinon.spy(stream, 'emit');
+      stream.end();
+      this.childOn.should.be.calledTwice;
+      stream.emit.should.be.calledWith('end');
+    });
+
     it('should handle errors from mocha', function () {
       this.childOn.yields(-1);
       var stream = this.stream = mocha();
