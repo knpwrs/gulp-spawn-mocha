@@ -58,6 +58,12 @@ describe('gulp-spawn-mocha tests', function () {
       proc.fork.should.be.calledWith(sinon.match.any, sinon.match.any, sinon.match({env: {'FOO' : 'BAR'}}));
     });
 
+    it('should allow for a custom working directory', function () {
+      var stream = this.stream = mocha({cwd: './tmp'});
+      stream.end();
+      proc.fork.should.be.calledWith(sinon.match.any, sinon.match.any, sinon.match({cwd: './tmp'}));
+    });
+
     it('should pass arguments to mocha, properly prefixing, dashifying, and ignoring', function () {
       var stream = this.stream = mocha({foo: 'bar', b: ['oof', 'rab'], debugBrk: true, isAString: true, R: 'spec', S: true, T: false, U: null, V: undefined});
       stream.end();
