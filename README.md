@@ -1,6 +1,6 @@
 # gulp-spawn-mocha
 
-[![Build Status](https://travis-ci.org/KenPowers/gulp-spawn-mocha.png?branch=master)](https://travis-ci.org/KenPowers/gulp-spawn-mocha) [![Coverage Status](https://coveralls.io/repos/KenPowers/gulp-spawn-mocha/badge.png)](https://coveralls.io/r/KenPowers/gulp-spawn-mocha)
+[![Build Status](https://travis-ci.org/knpwrs/gulp-spawn-mocha.png?branch=master)](https://travis-ci.org/knpwrs/gulp-spawn-mocha) [![Coverage Status](https://coveralls.io/repos/KenPowers/gulp-spawn-mocha/badge.png)](https://coveralls.io/r/KenPowers/gulp-spawn-mocha)
 
 This is a plugin for [gulp][gulp] which runs [Mocha][mocha] tests in a
 separate process from the `gulp` process. Each time tests are run a new child
