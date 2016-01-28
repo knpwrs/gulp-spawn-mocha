@@ -283,10 +283,10 @@ SOFTWARE.
 
   [gulp]: http://gulpjs.com/ "gulp.js"
   [mocha]: http://mochajs.org/ "Mocha"
-  [fork]: http://nodejs.org/api/child_process.html#child_process_child_process_fork_modulepath_args_options "child_process::fork"
+  [fork]: https://nodejs.org/api/child_process.html#child_process_child_process_fork_modulepath_args_options "child_process::fork"
   [ist]: https://github.com/gotwarlost/istanbul "Istanbul"
   [travis]: https://travis-ci.org/ "Travis CI"
   [coveralls]: https://coveralls.io/ "Coveralls"
-  [ncov]: https://github.com/cainus/node-coveralls "node-coveralls"
+  [ncov]: https://github.com/nickmerwin/node-coveralls "node-coveralls"
   [npm]: https://github.com/npm/npm/issues/6565
-  [21]: https://github.com/KenPowers/gulp-spawn-mocha/issues/21 "Issue 21: Setting `gc` option calls `mocha --gc` instead of `mocha -gc`"
+  [21]: https://github.com/knpwrs/gulp-spawn-mocha/issues/21 "Issue 21: Setting `gc` option calls `mocha --gc` instead of `mocha -gc`"
