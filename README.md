@@ -8,13 +8,13 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Badges](https://img.shields.io/badge/badges-7-orange.svg)](http://shields.io/)
 
-This is a plugin for [gulp][gulp] which runs [Mocha][mocha] tests in a
-separate process from the `gulp` process. Each time tests are run a new child
-process is created meaning the test environment always starts cleanly, i.e.,
-globals are reset as are non-enumerable properties defined on native
-prototypes via `Object.defineProperty`. This also means that if your tests
-crash the node process (e.g., `process.exit(-1)`.) then an `error` event is
-emitted rather than your whole `gulp` process crashing (good for watching).
+This is a plugin for [gulp] which runs [Mocha] tests in a separate process from
+the `gulp` process. Each time tests are run a new child process is created
+meaning the test environment always starts cleanly, i.e., globals are reset as
+are non-enumerable properties defined on native prototypes via
+`Object.defineProperty`. This also means that if your tests crash the node
+process (e.g., `process.exit(-1)`.) then an `error` event is emitted rather than
+your whole `gulp` process crashing (good for watching).
 
 ## Usage
 
@@ -33,15 +33,15 @@ info.
 
 The plugin accepts these special options:
 
-* `bin`: a path to a `mocha` executable to use instead of the one this plugin 
-looks for by default. This is useful if you want to use a fork of `mocha` 
+* `bin`: a path to a `mocha` executable to use instead of the one this plugin
+looks for by default. This is useful if you want to use a fork of `mocha`
 which goes by a different name or a different executable altogether.
 * `env`: the environment variables that the child process will have access to
-(key-value pairs, see [child_process::fork][fork]). These variables are 
-merged with your current environment variables and sent to the mocha 
+(key-value pairs, see [child_process::fork][fork]). These variables are
+merged with your current environment variables and sent to the mocha
 executable.
 * `cwd`: the working directory for the child process. This can be used to put
-files that the test creates or reads from the working directory in a specific 
+files that the test creates or reads from the working directory in a specific
 directory, instead of the directory where you are running gulp from.
 
 All other options are properly prefixed with either `-` or `--` and passed to
@@ -121,13 +121,12 @@ the mocha executable.
 
 ### Code Coverage
 
-Because of the nature of this plugin launching an external process to run
-tests, the standard coverage plugins for gulp will not work with this module.
-Starting in version `0.4.0` [Istanbul][ist] is included in order to enable
-code coverage reports without having to instrument code on disk. You can use
-it by passing the `istanbul` option. As noted previously peer dependencies are
-being deprecated so Istanbul is no longer a peer dependency. See
-[npm/npm#6565][npm] for more info.
+Because of the nature of this plugin launching an external process to run tests,
+the standard coverage plugins for gulp will not work with this module. Starting
+in version `0.4.0` [Istanbul] is included in order to enable code coverage
+reports without having to instrument code on disk. You can use it by passing the
+`istanbul` option. As noted previously peer dependencies are being deprecated so
+Istanbul is no longer a peer dependency. See [npm/npm#6565][npm] for more info.
 
 Set `istanbul` to `true` if you want to use all the default settings:
 
@@ -196,7 +195,7 @@ This will launch a process equivilant to:
 
 #### Publishing Coverage Reports
 
-Assuming you are using [Travis][travis] for CI and [Coveralls][coveralls] for
+Assuming you are using [Travis] for CI and [Coveralls] for
 publishing code coverage reports it is very easy to automatically have Travis
 publish to Coveralls when tests are run successfully. First make sure you
 install and save the `coveralls` module as a dev dependency:
@@ -287,12 +286,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-  [gulp]: http://gulpjs.com/ "gulp.js"
-  [mocha]: http://mochajs.org/ "Mocha"
-  [fork]: https://nodejs.org/api/child_process.html#child_process_child_process_fork_modulepath_args_options "child_process::fork"
-  [ist]: https://github.com/gotwarlost/istanbul "Istanbul"
-  [travis]: https://travis-ci.org/ "Travis CI"
-  [coveralls]: https://coveralls.io/ "Coveralls"
-  [ncov]: https://github.com/nickmerwin/node-coveralls "node-coveralls"
-  [npm]: https://github.com/npm/npm/issues/6565
-  [21]: https://github.com/knpwrs/gulp-spawn-mocha/issues/21 "Issue 21: Setting `gc` option calls `mocha --gc` instead of `mocha -gc`"
+[gulp]: http://gulpjs.com/ "gulp.js"
+[mocha]: http://mochajs.org/ "Mocha"
+[fork]: https://nodejs.org/api/child_process.html#child_process_child_process_fork_modulepath_args_options "child_process::fork"
+[Istanbul]: https://github.com/gotwarlost/istanbul "Istanbul"
+[Travis]: https://travis-ci.org/ "Travis CI"
+[coveralls]: https://coveralls.io/ "Coveralls"
+[ncov]: https://github.com/nickmerwin/node-coveralls "node-coveralls"
+[npm]: https://github.com/npm/npm/issues/6565
+[21]: https://github.com/knpwrs/gulp-spawn-mocha/issues/21 "Issue 21: Setting `gc` option calls `mocha --gc` instead of `mocha -gc`"
