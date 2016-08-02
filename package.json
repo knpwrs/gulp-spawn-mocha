@@ -25,15 +25,19 @@
   "homepage": "https://github.com/KenPowers/gulp-spawn-mocha",
   "dependencies": {
     "gulp-util": "~3.0.7",
-    "istanbul": "^0.4.3",
     "lodash": "^4.11.1",
-    "mocha": "^3.0.0",
     "through": "~2.3.4"
+  },
+  "peerDependencies": {
+    "mocha": "^3.0.0",
+    "istanbul": "^0.4.3"
   },
   "devDependencies": {
     "chai": "~3.5.0",
     "coveralls": "^2.11.1",
     "gulp": "^3.8.10",
+    "istanbul": "^0.4.3",
+    "mocha": "^3.0.0",
     "sinon": "~1.17.3",
     "sinon-chai": "~2.8.0"
   },

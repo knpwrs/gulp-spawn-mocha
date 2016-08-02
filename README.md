@@ -26,10 +26,8 @@ stream.pipe(mocha({
 }))
 ```
 
-This plugin uses mocha version `^2` and as of version `2.0.0` matches the
-major version of mocha. Please note that mocha is no longer a peer dependency
-as peer dependencies are being deprecated. See [npm/npm#6565][npm] for more
-info.
+This plugin uses `mocha` version `^3.0.0`. The major version of this plugin will
+match the major version of `mocha`, which is a peer dependency of this plugin.
 
 The plugin accepts these special options:
 
@@ -125,8 +123,7 @@ Because of the nature of this plugin launching an external process to run tests,
 the standard coverage plugins for gulp will not work with this module. Starting
 in version `0.4.0` [Istanbul] is included in order to enable code coverage
 reports without having to instrument code on disk. You can use it by passing the
-`istanbul` option. As noted previously peer dependencies are being deprecated so
-Istanbul is no longer a peer dependency. See [npm/npm#6565][npm] for more info.
+`istanbul` option.
 
 Set `istanbul` to `true` if you want to use all the default settings:
 
@@ -293,5 +290,4 @@ SOFTWARE.
 [Travis]: https://travis-ci.org/ "Travis CI"
 [coveralls]: https://coveralls.io/ "Coveralls"
 [ncov]: https://github.com/nickmerwin/node-coveralls "node-coveralls"
-[npm]: https://github.com/npm/npm/issues/6565
 [21]: https://github.com/knpwrs/gulp-spawn-mocha/issues/21 "Issue 21: Setting `gc` option calls `mocha --gc` instead of `mocha -gc`"
