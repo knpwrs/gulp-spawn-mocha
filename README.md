@@ -1,6 +1,12 @@
 # gulp-spawn-mocha
 
-[![Build Status](https://travis-ci.org/knpwrs/gulp-spawn-mocha.png?branch=master)](https://travis-ci.org/knpwrs/gulp-spawn-mocha) [![Coverage Status](https://coveralls.io/repos/KenPowers/gulp-spawn-mocha/badge.png)](https://coveralls.io/r/KenPowers/gulp-spawn-mocha)
+[![Dependency Status](https://img.shields.io/david/knpwrs/gulp-spawn-mocha.svg)](https://david-dm.org/knpwrs/gulp-spawn-mocha)
+[![devDependency Status](https://img.shields.io/david/dev/knpwrs/gulp-spawn-mocha.svg)](https://david-dm.org/knpwrs/gulp-spawn-mocha#info=devDependencies)
+[![Build Status](https://img.shields.io/travis/knpwrs/gulp-spawn-mocha.svg)](https://travis-ci.org/knpwrs/gulp-spawn-mocha)
+[![Code Coverage](https://img.shields.io/coveralls/knpwrs/gulp-spawn-mocha.svg)](https://coveralls.io/github/knpwrs/gulp-spawn-mocha)
+[![Npm Version](https://img.shields.io/npm/v/gulp-spawn-mocha.svg)](https://www.npmjs.com/package/gulp-spawn-mocha)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Badges](https://img.shields.io/badge/badges-7-orange.svg)](http://shields.io/)
 
 This is a plugin for [gulp][gulp] which runs [Mocha][mocha] tests in a
 separate process from the `gulp` process. Each time tests are run a new child
