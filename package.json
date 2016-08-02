@@ -27,7 +27,7 @@
     "gulp-util": "~3.0.7",
     "istanbul": "^0.4.3",
     "lodash": "^4.11.1",
-    "mocha": "^2",
+    "mocha": "^3.0.0",
     "through": "~2.3.4"
   },
   "devDependencies": {
