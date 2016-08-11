@@ -41,6 +41,9 @@ executable.
 * `cwd`: the working directory for the child process. This can be used to put
 files that the test creates or reads from the working directory in a specific
 directory, instead of the directory where you are running gulp from.
+* `execPath`: an alternative execution path to the Node.js instance.
+If not specified, by default, [child_process::fork][fork] will spawn the new
+Node.js instances using the [process::execPath][execPath] of the parent process.
 
 All other options are properly prefixed with either `-` or `--` and passed to
 the `mocha` executable. Any arguments which do not take a value (e.g., `c`,
@@ -266,6 +269,7 @@ you should use this plugin.
 [gulp]: http://gulpjs.com/ "gulp.js"
 [mocha]: http://mochajs.org/ "Mocha"
 [fork]: https://nodejs.org/api/child_process.html#child_process_child_process_fork_modulepath_args_options "child_process::fork"
+[execPath]: https://nodejs.org/api/process.html#process_process_execpath "process::execPath"
 [Istanbul]: https://github.com/gotwarlost/istanbul "Istanbul"
 [Travis]: https://travis-ci.org/ "Travis CI"
 [coveralls]: https://coveralls.io/ "Coveralls"

@@ -43,7 +43,7 @@ describe('gulp-spawn-mocha tests', function () {
       var bin = join(require.resolve('mocha'), '..', 'bin', 'mocha');
       var stream = this.stream = mocha();
       stream.end();
-      proc.fork.should.be.calledWith(bin, []);
+      proc.fork.should.be.calledWith(bin, [], sinon.match({execPath: process.execPath}));
     });
 
     it('should allow for a custom mocha binary', function () {
@@ -62,6 +62,12 @@ describe('gulp-spawn-mocha tests', function () {
       var stream = this.stream = mocha({cwd: './tmp'});
       stream.end();
       proc.fork.should.be.calledWith(sinon.match.any, sinon.match.any, sinon.match({cwd: './tmp'}));
+    });
+
+    it('should allow for a custom execPath', function () {
+      var stream = this.stream = mocha({execPath: '/foo/bar'});
+      stream.end();
+      proc.fork.should.be.calledWith(sinon.match.any, sinon.match.any, sinon.match({execPath: '/foo/bar'}));
     });
 
     it('should pass arguments to mocha, properly prefixing, dashifying, and ignoring', function () {
