@@ -1,5 +1,7 @@
 # gulp-spawn-mocha
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/knpwrs/gulp-spawn-mocha.svg)](https://greenkeeper.io/)
+
 [![Dependency Status](https://img.shields.io/david/knpwrs/gulp-spawn-mocha.svg)](https://david-dm.org/knpwrs/gulp-spawn-mocha)
 [![devDependency Status](https://img.shields.io/david/dev/knpwrs/gulp-spawn-mocha.svg)](https://david-dm.org/knpwrs/gulp-spawn-mocha#info=devDependencies)
 [![Build Status](https://img.shields.io/travis/knpwrs/gulp-spawn-mocha.svg)](https://travis-ci.org/knpwrs/gulp-spawn-mocha)
