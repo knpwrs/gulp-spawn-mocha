@@ -29,7 +29,9 @@
     "through": "~2.3.4"
   },
   "peerDependencies": {
-    "mocha": "^3.0.0",
+    "mocha": "^3.0.0"
+  },
+  "optionalDependencies": {
     "istanbul": "^0.4.3"
   },
   "devDependencies": {
