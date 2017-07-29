@@ -73,10 +73,10 @@ describe('gulp-spawn-mocha tests', function () {
     });
 
     it('should pass arguments to mocha, properly prefixing, dashifying, and ignoring', function () {
-      var stream = this.stream = mocha({foo: 'bar', b: ['oof', 'rab'], debugBrk: true, isAString: true, R: 'spec', S: true, T: false, U: null, V: undefined});
+      var stream = this.stream = mocha({foo: 'bar', b: ['oof', 'rab'], debugBrk: true, isAString: true, R: 'spec', S: true, T: false, U: null, V: undefined, maxOldSpaceSize: 4096});
       stream.write({path: 'foo'});
       stream.end();
-      proc.fork.should.be.calledWith(sinon.match.string, ['--foo', 'bar', '-b', 'oof', '-b', 'rab', '--debug-brk', '--is-a-string', '-R', 'spec', '-S', 'foo']);
+      proc.fork.should.be.calledWith(sinon.match.string, ['--foo', 'bar', '-b', 'oof', '-b', 'rab', '--debug-brk', '--is-a-string', '-R', 'spec', '-S', '--max-old-space-size=4096', 'foo']);
     });
 
     it('should handle non-errors from mocha', function () {
