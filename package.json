@@ -33,7 +33,7 @@
     "istanbul": "^0.4.3"
   },
   "devDependencies": {
-    "chai": "~3.5.0",
+    "chai": "~4.1.0",
     "coveralls": "^2.11.1",
     "gulp": "^3.8.10",
     "istanbul": "^0.4.3",
