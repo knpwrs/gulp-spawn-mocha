@@ -1,19 +1,28 @@
-const DEBUG = process.env.NODE_ENV === 'debug',
-      CI = process.env.CI === 'true';
+'use strict'
 
-var gulp = require('gulp'),
-    mocha = require('./lib');
+const DEBUG = process.env.NODE_ENV === 'debug'
+const CI = process.env.CI === 'true'
 
-gulp.task('test', function () {
-  return gulp.src(['test/*.test.js'], {read: false})
-    .pipe(mocha({
+const gulp = require('gulp')
+const mocha = require('./lib')
+
+gulp.task('test', () =>
+  gulp.src(['test/*.test.js'], { read: false }).pipe(
+    mocha({
       debugBrk: DEBUG,
       r: 'test/setup.js',
       R: CI ? 'spec' : 'nyan',
-      istanbul: !DEBUG
-    }));
-});
+      nyc: {
+        instrument: true,
+        sourceMap: true,
+        reporter: ['lcov', 'text-summary'],
+        cache: true,
+        reportDir: 'coverage'
+      }
+    })
+  )
+)
 
-gulp.task('default', ['test'], function () {
-  gulp.watch('{lib,test}/*', ['test']);
-});
+gulp.task('default', ['test'], () => {
+  gulp.watch('{lib,test}/*', ['test'])
+})

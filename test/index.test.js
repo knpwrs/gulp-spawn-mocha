@@ -1,7 +1,7 @@
 'use strict'
 
-/* eslint-env node, mocha */
-/* global sinon */
+/* eslint-env node, mocha, chai */
+/* global sinon, expect */
 
 const mocha = require('../lib')
 const through = require('through')
@@ -35,10 +35,10 @@ describe('gulp-spawn-mocha tests', () => {
       paths.forEach((path) => {
         stream.write({ path })
       })
-      stream._files.should.deep.equal(paths)
-      proc.fork.should.not.be.called
+      expect(stream._files).to.deep.equal(paths)
+      expect(proc.fork).to.not.be.called
       stream.end()
-      proc.fork.should.be.calledWith(sinon.match.string, this.stream._files)
+      expect(proc.fork).to.be.calledWith(sinon.match.string, this.stream._files)
     })
 
     it('should default to proper binary', function () {
@@ -177,43 +177,43 @@ describe('gulp-spawn-mocha tests', () => {
     })
   })
 
-  describe('istanbul functionality', () => {
-    let bin = join(
-      require.resolve('istanbul'),
+  describe('nyc functionality', () => {
+    const nycBin = join(
+      require.resolve('nyc'),
       '..',
-      require('istanbul/package.json').bin.istanbul
+      require('nyc/package.json').bin.nyc
     )
-    let mbin = join(require.resolve('mocha'), '..', 'bin', '_mocha')
+    const mochaBin = join(require.resolve('mocha'), '..', 'bin', 'mocha')
 
-    it('should properly call istanbul with no arguments', function () {
-      let stream = (this.stream = mocha({ istanbul: true }))
+    it('should properly call nyc with no arguments', function () {
+      let stream = (this.stream = mocha({ nyc: true }))
       stream.write({ path: 'foo' })
       stream.end()
-      proc.fork.should.be.calledWith(bin, ['cover', '--', mbin, 'foo'])
+      expect(proc.fork).to.be.calledWith(nycBin, [mochaBin, 'foo'])
     })
 
-    it('should properly call istanbul with one more more arguments', function () {
+    it('should properly call nyc with one more more arguments', function () {
       let stream = (this.stream = mocha({
-        istanbul: { verbose: true, print: 'detail' }
+        nyc: { silent: true, reporter: ['lcov', 'text-summary'] }
       }))
       stream.write({ path: 'foo' })
       stream.end()
-      proc.fork.should.be.calledWith(bin, [
-        'cover',
-        '--verbose',
-        '--print',
-        'detail',
-        '--',
-        mbin,
+      proc.fork.should.be.calledWith(nycBin, [
+        '--silent',
+        '--reporter',
+        'lcov',
+        '--reporter',
+        'text-summary',
+        mochaBin,
         'foo'
       ])
     })
 
     it('can use a custom binary', function () {
-      let stream = (this.stream = mocha({ istanbul: { bin: 'isparta' } }))
+      let stream = (this.stream = mocha({ nyc: { bin: 'isparta' } }))
       stream.write({ path: 'foo' })
       stream.end()
-      proc.fork.should.be.calledWith('isparta', ['cover', '--', mbin, 'foo'])
+      proc.fork.should.be.calledWith('isparta', [mochaBin, 'foo'])
     })
   })
 })
