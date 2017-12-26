@@ -1,12 +1,15 @@
 # gulp-spawn-mocha
 
-[![Dependency Status](https://img.shields.io/david/knpwrs/gulp-spawn-mocha.svg)](https://david-dm.org/knpwrs/gulp-spawn-mocha)
-[![devDependency Status](https://img.shields.io/david/dev/knpwrs/gulp-spawn-mocha.svg)](https://david-dm.org/knpwrs/gulp-spawn-mocha#info=devDependencies)
-[![Build Status](https://img.shields.io/travis/knpwrs/gulp-spawn-mocha.svg)](https://travis-ci.org/knpwrs/gulp-spawn-mocha)
-[![Code Coverage](https://img.shields.io/coveralls/knpwrs/gulp-spawn-mocha.svg)](https://coveralls.io/github/knpwrs/gulp-spawn-mocha)
-[![Npm Version](https://img.shields.io/npm/v/gulp-spawn-mocha.svg)](https://www.npmjs.com/package/gulp-spawn-mocha)
+[![Dependency Status](https://img.shields.io/david/raccoon-lee/gulp-spawn-mocha.svg)](https://david-dm.org/knpwrs/gulp-spawn-mocha)
+[![devDependency Status](https://img.shields.io/david/dev/raccoon-lee/gulp-spawn-mocha.svg)](https://david-dm.org/knpwrs/gulp-spawn-mocha#info=devDependencies)
+[![Build Status](https://img.shields.io/travis/raccoon-lee/gulp-spawn-mocha.svg)](https://travis-ci.org/knpwrs/gulp-spawn-mocha)
+[![Code Coverage](https://img.shields.io/coveralls/raccoon-lee/gulp-spawn-mocha.svg)](https://coveralls.io/github/knpwrs/gulp-spawn-mocha)
+
+<!-- [![Npm Version](https://img.shields.io/npm/v/gulp-spawn-mocha.svg)](https://www.npmjs.com/package/gulp-spawn-mocha) -->
+
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Badges](https://img.shields.io/badge/badges-7-orange.svg)](http://shields.io/)
+
+<!-- [![Badges](https://img.shields.io/badge/badges-7-orange.svg)](http://shields.io/) -->
 
 This is a plugin for [gulp] which runs [Mocha] tests in a separate process from
 the `gulp` process. Each time tests are run a new child process is created
@@ -21,9 +24,11 @@ your whole `gulp` process crashing (good for watching).
 Usage is according to this API:
 
 ```javascript
-stream.pipe(mocha({
-  // options
-}))
+stream.pipe(
+  mocha({
+    // options
+  })
+);
 ```
 
 This plugin uses `mocha` version `^4.0.0`. The major version of this plugin will
@@ -32,18 +37,18 @@ match the major version of `mocha`, which is a peer dependency of this plugin.
 The plugin accepts these special options:
 
 * `bin`: a path to a `mocha` executable to use instead of the one this plugin
-looks for by default. This is useful if you want to use a fork of `mocha`
-which goes by a different name or a different executable altogether.
+  looks for by default. This is useful if you want to use a fork of `mocha`
+  which goes by a different name or a different executable altogether.
 * `env`: the environment variables that the child process will have access to
-(key-value pairs, see [child_process::fork][fork]). These variables are
-merged with your current environment variables and sent to the mocha
-executable.
+  (key-value pairs, see [child_process::fork][fork]). These variables are
+  merged with your current environment variables and sent to the mocha
+  executable.
 * `cwd`: the working directory for the child process. This can be used to put
-files that the test creates or reads from the working directory in a specific
-directory, instead of the directory where you are running gulp from.
+  files that the test creates or reads from the working directory in a specific
+  directory, instead of the directory where you are running gulp from.
 * `execPath`: an alternative execution path to the Node.js instance.
-If not specified, by default, [child_process::fork][fork] will spawn the new
-Node.js instances using the [process::execPath][execPath] of the parent process.
+  If not specified, by default, [child_process::fork][fork] will spawn the new
+  Node.js instances using the [process::execPath][execpath] of the parent process.
 
 All other options are properly prefixed with either `-` or `--` and passed to
 the `mocha` executable. Any arguments which do not take a value (e.g., `c`,
@@ -56,22 +61,23 @@ this plugin's very own `gulpfile.js`:
 
 ```javascript
 const DEBUG = process.env.NODE_ENV === 'debug',
-      CI = process.env.CI === 'true';
+  CI = process.env.CI === 'true';
 
 var gulp = require('gulp'),
-    mocha = require('./lib');
+  mocha = require('./lib');
 
-gulp.task('test', function () {
-  return gulp.src(['test/*.test.js'], {read: false})
-    .pipe(mocha({
+gulp.task('test', function() {
+  return gulp.src(['test/*.test.js'], { read: false }).pipe(
+    mocha({
       debugBrk: DEBUG,
       r: 'test/setup.js',
       R: CI ? 'spec' : 'nyan',
       istanbul: !DEBUG
-    }));
+    })
+  );
 });
 
-gulp.task('default', ['test'], function () {
+gulp.task('default', ['test'], function() {
   gulp.watch('{lib,test}/*', ['test']);
 });
 ```
@@ -91,10 +97,12 @@ when a certain environment variable is true. Example:
 
 ```javascript
 const DEBUG = process.env.NODE_ENV === 'debug';
-stream.pipe(mocha({
+stream.pipe(
+  mocha({
     debugBrk: DEBUG,
     istanbul: !DEBUG
-}));
+  })
+);
 ```
 
 ### Custom Environment Variables
@@ -106,14 +114,14 @@ look like this:
 
 ```javascript
 var gulp = require('gulp'),
-    mocha = require('gulp-spawn-mocha');
+  mocha = require('gulp-spawn-mocha');
 
 gulp.task('test', function() {
-  return gulp
-    .src(['test/*.test.js'])
-    .pipe(mocha({
-      env: {'NODE_ENV': 'test'}
-    }));
+  return gulp.src(['test/*.test.js']).pipe(
+    mocha({
+      env: { NODE_ENV: 'test' }
+    })
+  );
 });
 ```
 
@@ -124,73 +132,73 @@ the mocha executable.
 
 Because of the nature of this plugin launching an external process to run tests,
 the standard coverage plugins for gulp will not work with this module. Starting
-in version `0.4.0` [Istanbul] is included in order to enable code coverage
+in version `1.0.0` [nyc] is included in order to enable code coverage
 reports without having to instrument code on disk. You can use it by passing the
-`istanbul` option.
+`nyc` option.
 
-Set `istanbul` to `true` if you want to use all the default settings:
+Set `nyc` to `true` if you want to use all the default settings:
 
 ```javascript
 gulp.task('test', function() {
-  return gulp
-    .src(['test/*.test.js'])
-    .pipe(mocha({
-      istanbul: true
-    }));
+  return gulp.src(['test/*.test.js']).pipe(
+    mocha({
+      nyc: true
+    })
+  );
 });
 ```
 
 This will launch a process equivilant to:
 
 ```
-istanbul cover -- _mocha
+nyc mocha
 ```
 
 The default settings of Istanbul output to a directory in the `cwd` called
 `coverage`.
 
-If you want to pass options to Istanbul, you can do that as well:
+If you want to pass options to nyc, you can do that as well:
 
 ```javascript
 gulp.task('test', function() {
-  return gulp
-    .src(['test/*.test.js'])
-    .pipe(mocha({
-      istanbul: {
-        dir: 'path/to/custom/output/directory'
+  return gulp.src(['test/*.test.js']).pipe(
+    mocha({
+      nyc: {
+        reportDir: 'path/to/custom/output/directory'
       }
-    }));
+    })
+  );
 });
 ```
 
 This will launch a process equivilant to:
 
 ```
-istanbul cover --dir path/to/custom/output/directory -- _mocha
+nyc --report-dir path/to/custom/output/directory mocha
 ```
 
 This will output to a directory called `path/to/custom/output/directory`.
 
-Istanbul, like `mocha`, supports a custom `bin` option so you can use a custom
+nyc, like `mocha`, supports a custom `bin` option so you can use a custom
 fork of Istanbul:
 
 ```javascript
 gulp.task('test', function() {
-  return gulp
-    .src(['test/*.test.js'])
-    .pipe(mocha({
-      istanbul: {
-        dir: 'path/to/custom/output/directory',
+  return gulp.src(['test/*.test.js']).pipe(
+    mocha({
+      nyc: {
+        reportDir: 'path/to/custom/output/directory',
         bin: require.resolve('isparta') + '/bin/isparta'
       }
-    }));
+    })
+  );
 });
 ```
 
 This will launch a process equivilant to:
 
 ```
-./node_modules/isparta/bin/isparta cover --dir path/to/custom/output/directory -- _mocha
+./node_modules/isparta/bin/isparta --report-dir path/to/custom/output/directory mocha
 ```
 
 #### Publishing Coverage Reports
@@ -216,7 +224,7 @@ after_success: ./node_modules/.bin/coveralls --verbose < coverage/lcov.info
 
 The `coveralls` module requires no additional configuration to publish to
 Coveralls as long as both Travis and Coveralls are configured for the same
-*public* repository. See [`node-coveralls`][ncov] for more details.
+_public_ repository. See [`node-coveralls`][ncov] for more details.
 
 ### Output Reports to a File
 
@@ -226,33 +234,36 @@ its path. Note, if you are using `istanbul`, your reports content may contain
 `istanbul`'s result.
 
 Use file path:
+
 ```js
-gulp.task('test', function () {
-  return gulp.src(['test/*.test.js'], {read: false})
-    .pipe(mocha({
+gulp.task('test', function() {
+  return gulp.src(['test/*.test.js'], { read: false }).pipe(
+    mocha({
       debugBrk: DEBUG,
       r: 'test/setup.js',
       R: CI ? 'spec' : 'nyan',
-      istanbul: !DEBUG,
+      nyc: !DEBUG,
       output: 'result.log'
-    }));
+    })
+  );
 });
 ```
 
 Use file stream:
+
 ```js
-gulp.task('test', function () {
-  return gulp.src(['test/*.test.js'], {read: false})
-    .pipe(mocha({
+gulp.task('test', function() {
+  return gulp.src(['test/*.test.js'], { read: false }).pipe(
+    mocha({
       debugBrk: DEBUG,
       r: 'test/setup.js',
       R: CI ? 'spec' : 'nyan',
-      istanbul: !DEBUG,
-      output: fs.createWriteStream('result.log', {flags: 'w'})
-    }));
+      nyc: !DEBUG,
+      output: fs.createWriteStream('result.log', { flags: 'w' })
+    })
+  );
 });
 ```
-
 
 ## This or `gulp-mocha`?
 
@@ -269,9 +280,9 @@ you should use this plugin.
 [gulp]: http://gulpjs.com/ "gulp.js"
 [mocha]: http://mochajs.org/ "Mocha"
 [fork]: https://nodejs.org/api/child_process.html#child_process_child_process_fork_modulepath_args_options "child_process::fork"
-[execPath]: https://nodejs.org/api/process.html#process_process_execpath "process::execPath"
-[Istanbul]: https://github.com/gotwarlost/istanbul "Istanbul"
-[Travis]: https://travis-ci.org/ "Travis CI"
+[execpath]: https://nodejs.org/api/process.html#process_process_execpath "process::execPath"
+[nyc]: https://github.com/istanbuljs/nyc "nyc"
+[travis]: https://travis-ci.org/ "Travis CI"
 [coveralls]: https://coveralls.io/ "Coveralls"
 [ncov]: https://github.com/nickmerwin/node-coveralls "node-coveralls"
 [21]: https://github.com/knpwrs/gulp-spawn-mocha/issues/21 "Issue 21: Setting `gc` option calls `mocha --gc` instead of `mocha -gc`"

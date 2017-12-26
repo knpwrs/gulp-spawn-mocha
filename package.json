@@ -1,47 +1,50 @@
 {
-  "name": "gulp-spawn-mocha",
-  "version": "4.0.1",
-  "description": "Runs Mocha as a child process.",
+  "name": "gulp-spawn-mocha-nyc",
+  "version": "1.0.0",
+  "description": "Runs Mocha as a child process, and use nyc as coverage tool.",
   "main": "lib/index.js",
   "scripts": {
     "test": "gulp test"
   },
-  "repository": "KenPowers/gulp-spawn-mocha",
-  "keywords": [
-    "gulpplugin",
-    "mocha",
-    "spawn",
-    "child",
-    "process"
-  ],
+  "repository": "raccoon-lee/gulp-spawn-mocha",
+  "keywords": ["gulpplugin", "mocha", "spawn", "child", "process", "nyc"],
   "author": {
     "name": "Kenneth Powers",
     "email": "ken@kenpowers.net"
   },
+  "contributors": [
+    {
+      "name": "Raccoon Li",
+      "email": "raccoon@hahow.in"
+    }
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/KenPowers/gulp-spawn-mocha/issues"
+    "url": "https://github.com/raccoon-lee/gulp-spawn-mocha-nyc/issues"
   },
-  "homepage": "https://github.com/KenPowers/gulp-spawn-mocha",
+  "homepage": "https://github.com/raccoon-lee/gulp-spawn-mocha-nyc",
   "dependencies": {
-    "gulp-util": "~3.0.7",
-    "lodash": "^4.11.1",
-    "through": "~2.3.4"
+    "gulp-util": "~3.0.8",
+    "lodash": "^4.17.4",
+    "through": "~2.3.8"
   },
   "peerDependencies": {
     "mocha": "^4.0.0",
-    "istanbul": "^0.4.3"
+    "nyc": "^11.0.0"
   },
   "devDependencies": {
-    "chai": "~4.1.0",
-    "coveralls": "^2.11.1",
-    "gulp": "^3.8.10",
-    "istanbul": "^0.4.3",
-    "mocha": "^4.0.0",
-    "sinon": "~2.3.0",
-    "sinon-chai": "~2.13.0"
+    "chai": "~4.1.2",
+    "coveralls": "^3.0.0",
+    "eslint-config-hahow":
+      "git+https://github.com/hahow/eslint-config-hahow.git#v4.0.0",
+    "gulp": "^3.9.1",
+    "mocha": "^4.0.1",
+    "nyc": "^11.4.1",
+    "prettier-eslint-cli": "^4.7.0",
+    "sinon": "~4.1.3",
+    "sinon-chai": "~2.14.0"
   },
   "engines": {
-    "node": ">= 4"
+    "node": ">= 8"
   }
 }
