@@ -26,7 +26,7 @@ stream.pipe(mocha({
 }))
 ```
 
-This plugin uses `mocha` version `^4.0.0`. The major version of this plugin will
+This plugin uses `mocha` version `^5.0.0`. The major version of this plugin will
 match the major version of `mocha`, which is a peer dependency of this plugin.
 
 The plugin accepts these special options:
