@@ -3,7 +3,7 @@ describe('gulp-spawn-mocha tests', function () {
       through = require('through'),
       proc = require('child_process'),
       join = require('path').join,
-      PluginError = require('gulp-util').PluginError,
+      PluginError = require('plugin-error'),
       fs = require('fs');
 
   beforeEach(function () {
