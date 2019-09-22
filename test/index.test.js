@@ -100,6 +100,17 @@ describe('gulp-spawn-mocha tests', function () {
       stream.emit.should.be.calledWith('error', sinon.match.instanceOf(PluginError));
     });
 
+    it('should handle terminations from mocha', function () {
+      this.childOn.withArgs('close').yields(null, 'SIGTERM');
+      var stream = this.stream = mocha();
+      stream.write({path: 'foo'});
+      sinon.stub(stream, 'emit');
+      stream.emit.withArgs('error').returns();
+      stream.end();
+      this.childOn.should.be.calledTwice;
+      stream.emit.should.be.calledWith('error', sinon.match.instanceOf(PluginError));
+    });
+
     it('can output to a writable stream from a string argument', function () {
       var fakeStream = {};
       sinon.stub(fs, 'createWriteStream').returns(fakeStream);

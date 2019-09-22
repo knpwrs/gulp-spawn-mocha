@@ -14,6 +14,6 @@ gulp.task('test', function () {
     }));
 });
 
-gulp.task('default', ['test'], function () {
-  gulp.watch('{lib,test}/*', ['test']);
+gulp.task('default', function () {
+  gulp.watch('{lib,test}/*', {ignoreInitial: false}, gulp.series('test'))
 });
