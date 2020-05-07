@@ -4,7 +4,9 @@
   "description": "Runs Mocha as a child process.",
   "main": "lib/index.js",
   "scripts": {
-    "test": "gulp test"
+    "test": "gulp test",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": "KenPowers/gulp-spawn-mocha",
   "keywords": [
@@ -26,7 +28,8 @@
   "dependencies": {
     "lodash": "^4.17.14",
     "plugin-error": "^1.0.1",
-    "through": "~2.3.4"
+    "through": "~2.3.4",
+    "snyk": "^1.319.1"
   },
   "peerDependencies": {
     "mocha": "^6.2.0",
@@ -43,5 +46,6 @@
   },
   "engines": {
     "node": ">= 4"
-  }
+  },
+  "snyk": true
 }
